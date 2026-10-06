@@ -13,7 +13,7 @@ type User = {
 };
 
 export default function Home() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
 
@@ -61,7 +61,6 @@ export default function Home() {
     const data = await getResponse.json();
 
     setUsers(data);
-
     setText("");
   };
 
@@ -125,6 +124,8 @@ export default function Home() {
     const data = await getResponse.json();
 
     setUsers(data);
+    setText("");
+    setEditingId(null);
   };
 
 
@@ -138,7 +139,7 @@ export default function Home() {
       </div>
 
 
-      <div className="bg-gray-100 overflow-y-scroll shadow-xl flex flex-col justify-start items-center w-3/5 px-10 pt-5 pb-5 h-120 border-2 border-gray-300 rounded-2xl">
+      <div className="bg-gray-100 overflow-y-scroll shadow-xl flex flex-col justify-start items-center w-80 md:w-3/5 px-5 md:px-10 pt-3 md:pt-5 pb-3 md:pb-5 h-120 border-2 border-gray-300 rounded-2xl">
 
         {users.map((item, index) => (
 
@@ -193,14 +194,14 @@ export default function Home() {
       </div>
 
 
-      <div className="flex justify-center items-center bg-gray-100 gap-5 shadow-xl w-3/5 h-20 border-2 border-gray-300 rounded-2xl">
+      <div className="flex justify-center items-center bg-gray-100 gap-2 md:gap-5 shadow-xl w-80 md:w-3/5 h-20 border-2 border-gray-300 rounded-2xl">
 
         <div className="text-black">
 
           <input
             value={text}
             onChange={(event) => setText(event.target.value)}
-            className="focus:outline-none border border-gray-300 rounded-xl px-5 py-2 w-190"
+            className="focus:outline-none border border-gray-300 rounded-xl px-5 py-2 md:w-190"
             type="text"
             placeholder="type here ..."
           />
@@ -210,7 +211,7 @@ export default function Home() {
 
         {/* POST or PUT, depending on editingId */}
 
-        <div className="w-10 h-10 text-white bg-orange-500 rounded-xl flex justify-center items-center">
+        <div className="w-10 h-10 text-white bg-orange-500  rounded-xl flex justify-center items-center">
 
           <button
             onClick={() => (editingId === null ? SendData() : UpdateData())}
